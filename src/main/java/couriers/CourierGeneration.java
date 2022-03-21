@@ -1,11 +1,10 @@
-import io.qameta.allure.Allure;
+package couriers;
+
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 
 
@@ -73,10 +72,9 @@ public class CourierGeneration {
         loginPass.add(courierPassword);
         loginPass.add(courierFirstName);
 
-        Allure.addAttachment("Login", courierLogin);
-        Allure.addAttachment("Password", courierPassword);
-        Allure.addAttachment("Name", courierFirstName);
 
         return loginPass;
     }
+
+
 }

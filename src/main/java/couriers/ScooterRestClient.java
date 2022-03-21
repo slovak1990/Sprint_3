@@ -1,16 +1,19 @@
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.specification.RequestSpecification;
+package couriers;
 
-import static io.restassured.http.ContentType.JSON;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 
 public class ScooterRestClient {
 
-    public static final String BASE_URL = "http://qa-scooter.praktikum-services.ru/";
+    private static final String BASE_URL = "http://qa-scooter.praktikum-services.ru/";
 
     protected RequestSpecification getBaseSpec() {
         return new RequestSpecBuilder()
-                .setContentType(JSON)
+                .addFilter(new AllureRestAssured())
                 .setBaseUri(BASE_URL)
+                .setContentType(ContentType.JSON)
                 .build();
     }
 }

@@ -1,8 +1,10 @@
 package couriers;
 
+import lombok.Builder;
 import lombok.Data;
 
-@Data // lombok плагин где сетеры и гетеры по умолч
+@Data
+@Builder
 public class CourierCredentials {
     private String login;
     private String password;
