@@ -1,9 +1,9 @@
-package feature3;
+package feature1;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 
 @Epic("Creating new user role")
-@Feature("Creating orders")
-public class FeatureTest3 {
+@Feature("Registration of courier")
+public class FeatureAllure1 {
 }

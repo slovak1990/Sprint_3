@@ -5,5 +5,5 @@ import io.qameta.allure.Feature;
 
 @Epic("Creating new user role")
 @Feature("Login can validaion")
-public class FeatureTest2 {
+public class FeatureAllure2 {
 }

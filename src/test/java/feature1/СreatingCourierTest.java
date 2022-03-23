@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class creatingCourierTest {
+public class СreatingCourierTest {
 
     private CourierClient courierClient;
     private int courierId;
