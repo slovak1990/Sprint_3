@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertNotEquals;
 
 @RunWith(Parameterized.class)
-public class OrderWithParameterizedTest extends FeatureTest3 {
+public class OrderWithParameterizedTest extends FeatureAllure3 {
 
     private OrderClient orderClient;
     private final String[] colors;
@@ -25,7 +25,7 @@ public class OrderWithParameterizedTest extends FeatureTest3 {
         orderClient = new OrderClient();
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "colors {BLACK, 0}, {GREY, 1}")
     public static Object[][] possibleColors() {
         return new Object[][]{
                 {new String[]{"BLACK"}},

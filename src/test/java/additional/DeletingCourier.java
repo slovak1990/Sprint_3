@@ -41,9 +41,9 @@ public class DeletingCourier {
     @DisplayName("Check possibility deleting courier")
     @Description("Basic test for delete courier without courier id")
     public void deletingCourierWithoutIdTest() {
-        String errorMessage = courierClient.deleteWithoutId();
+        String message = courierClient.deleteWithoutId();
 
-        assertEquals("Недостаточно данных для удаления курьера", errorMessage);
+        assertEquals("Недостаточно данных для удаления курьера", message);
     }
 
     @Test
@@ -51,8 +51,9 @@ public class DeletingCourier {
     @Description("Basic test for delete courier with incorrect courier id")
     public void deletingCourierWithWrongIdTest() {
         courierId = 55555;
-        String errorMessage = courierClient.deleteWithWrongId(courierId);
 
-        assertEquals("Курьера с таким id нет.", errorMessage);
+        String message = courierClient.deleteWithWrongId(courierId);
+
+        assertEquals("Курьера с таким id нет.", message);
     }
 }

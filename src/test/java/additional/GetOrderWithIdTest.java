@@ -8,9 +8,7 @@ import orders.Order;
 import orders.OrderClient;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -43,9 +41,9 @@ public class GetOrderWithIdTest {
     @DisplayName("Check getting orders by courier")
     @Description("Basic test for get order without track id")
     public void getOrderWithoutTrackIdTest() {
-        String errorMessage = orderClient.getOrderWithoutTrackId();
+        String message = orderClient.getOrderWithoutTrackId();
 
-        assertEquals("Недостаточно данных для поиска", errorMessage);
+        assertEquals("Недостаточно данных для поиска", message);
     }
 
     @Test
@@ -54,9 +52,9 @@ public class GetOrderWithIdTest {
     public void geOrderWithIncorrectIdTest() {
         trackId = 0;
 
-        String errorMessage = orderClient.getOrderWithIncorrectTrackId(trackId);
+        String message = orderClient.getOrderWithIncorrectTrackId(trackId);
 
-        assertEquals("Заказ не найден", errorMessage);
+        assertEquals("Заказ не найден", message);
     }
 }
 

@@ -9,6 +9,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.junit4.DisplayName;
 import orders.Order;
 import orders.OrderClient;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -27,6 +28,9 @@ public class AcceptOrderTest {
     public void setUp() { courierClient = new CourierClient();
     orderClient = new OrderClient(); }
 
+    @After
+    public void teardown() { courierClient.delete(courierId);}
+
     @Test
     @DisplayName("Check possibility accepted order")
     @Description("Basic test for accepted order by courier")
@@ -43,7 +47,6 @@ public class AcceptOrderTest {
         boolean isAccepted = orderClient.acceptOrder(orderTrack, courierId);
 
         assertTrue(isAccepted);
-        courierClient.delete(courierId);
     }
 
     @Test
@@ -55,9 +58,9 @@ public class AcceptOrderTest {
                 7, "2022-11-28", "джедаи будут повержены");
         orderTrack = orderClient.orderCreate(order);
 
-        String errorMessage = orderClient.failedAcceptOrderWithoutCourierId(orderTrack);
+        String message = orderClient.failedAcceptOrderWithoutCourierId(orderTrack);
 
-        assertEquals("Недостаточно данных для поиска", errorMessage);
+        assertEquals("Недостаточно данных для поиска", message);
     }
 
     @Test
@@ -71,9 +74,9 @@ public class AcceptOrderTest {
 
         courierId = 0;
 
-        String errorMessage = orderClient.failedAcceptOrderWithIncorrectId(orderTrack, courierId);
+        String message = orderClient.failedAcceptOrderWithIncorrectId(orderTrack, courierId);
 
-        assertEquals("Курьера с таким id не существует", errorMessage);
+        assertEquals("Курьера с таким id не существует", message);
     }
 
     @Test
@@ -84,9 +87,9 @@ public class AcceptOrderTest {
         courierClient.create(courier);
         courierId = courierClient.login(CourierCredentials.from(courier));
 
-        String errorMessage = orderClient.failedAcceptOrderWithoutOrderId(courierId);
+        String message = orderClient.failedAcceptOrderWithoutOrderId(courierId);
 
-        assertEquals("Недостаточно данных для поиска", errorMessage);
+        assertEquals("Недостаточно данных для поиска", message);
     }
 
     @Test
@@ -99,8 +102,8 @@ public class AcceptOrderTest {
 
         orderTrack = 0;
 
-        String errorMessage = orderClient.failedAcceptOrderWithIncorrectOrderId(orderTrack, courierId);
+        String message = orderClient.failedAcceptOrderWithIncorrectOrderId(orderTrack, courierId);
 
-        assertEquals("Заказа с таким id не существует", errorMessage);
+        assertEquals("Заказа с таким id не существует", message);
     }
 }

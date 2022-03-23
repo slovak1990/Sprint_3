@@ -6,11 +6,12 @@ import couriers.CourierCredentials;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class СreatingCourierTest {
+public class СreatingCourierTest extends FeatureAllure1{
 
     private CourierClient courierClient;
     private int courierId;
@@ -20,17 +21,29 @@ public class СreatingCourierTest {
         courierClient = new CourierClient();
     }
 
+    @After
+    public void teardown() { courierClient.delete(courierId);}
+
     @Test
     @DisplayName("Creating courier")
-    @Description("Basic test for create courier")
-    public void creatingCourierTest() {
+    @Description("Basic test courier is created")
+    public void isCreatingCourierTest() {
         Courier courier = Courier.getRandom();
         boolean isCreated = courierClient.create(courier);
         courierId = courierClient.login(CourierCredentials.from(courier));
 
         assertTrue(isCreated);
+    }
+
+    @Test
+    @DisplayName("Creating courier")
+    @Description("Basic test cheking Id courier")
+    public void checkingCourierIdTest() {
+        Courier courier = Courier.getRandom();
+        courierClient.create(courier);
+        courierId = courierClient.login(CourierCredentials.from(courier));
+
         assertNotEquals(0, courierId);
-        courierClient.delete(courierId);
     }
 
     @Test
@@ -42,8 +55,9 @@ public class СreatingCourierTest {
                 .password(RandomStringUtils.randomAlphabetic(10))
                 .build();
 
-        String errorMessage = courierClient.createFailed(courier);
-        assertEquals("Недостаточно данных для создания учетной записи", errorMessage);
+        String message = courierClient.createFailed(courier);
+
+        assertEquals("Недостаточно данных для создания учетной записи", message);
     }
 
     @Test
@@ -55,8 +69,9 @@ public class СreatingCourierTest {
                 .login(RandomStringUtils.randomAlphabetic(10))
                 .build();
 
-        String errorMessage = courierClient.createFailed(courier);
-        assertEquals("Недостаточно данных для создания учетной записи", errorMessage);
+        String message = courierClient.createFailed(courier);
+
+        assertEquals("Недостаточно данных для создания учетной записи", message);
     }
 
     @Test
@@ -66,9 +81,9 @@ public class СreatingCourierTest {
         Courier courier = Courier.getRandom();
         courierClient.create(courier);
         courierId = courierClient.login(CourierCredentials.from(courier));
-        String errorMessage = courierClient.createSecondCourier(courier);
 
-        assertEquals("Этот логин уже используется. Попробуйте другой.", errorMessage);
-        courierClient.delete(courierId);
+        String message = courierClient.createSecondCourier(courier);
+
+        assertEquals("Этот логин уже используется. Попробуйте другой.", message);
     }
 }
